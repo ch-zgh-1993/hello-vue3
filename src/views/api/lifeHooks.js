@@ -29,11 +29,17 @@ export function mounted () {
 export function refFun () {
     const root = ref(null)
 
+    const refDivs = ref([])
+
     onMounted(() => {
         console.log(root.value)
+
+        // 看下 v-for refs 的值
+        console.log(refDivs.value)
     })
 
     return {
-        root
+        root,
+        refDivs
     }
 }
