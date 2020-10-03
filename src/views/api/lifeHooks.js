@@ -8,7 +8,7 @@
 // beforeCreated/created = setup; 其他 = +on
 // 新增： onRenderTracked, onRenderTriggered. DebuggerEvent.
 
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 export function mounted () {
     onMounted(() => {
@@ -17,4 +17,23 @@ export function mounted () {
 }
 
 // 依赖注入
-// provide/inject
+// provide/inject 
+// 
+
+
+// Refs === template refs
+// 将 root 暴露在渲染上下文中，通过 ref='' 进行绑定。在 DOM patch 算法中，在 vritual DOM 的 mount/patch 中执行。所以仅在渲染后才可以访问。
+//  ref 是响应式的，可以传递组合函数，或者从中返回。
+// 
+
+export function refFun () {
+    const root = ref(null)
+
+    onMounted(() => {
+        console.log(root.value)
+    })
+
+    return {
+        root
+    }
+}

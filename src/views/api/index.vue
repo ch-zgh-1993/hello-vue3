@@ -1,10 +1,10 @@
 <template>
-    <div></div>
+    <div ref="root"></div>
 </template>
 
 <script>
 import { readonlyF } from './reactiveApi'
-import { mounted } from './lifeHooks'
+import { mounted, refFun } from './lifeHooks'
 export default {
     setup () {
 
@@ -13,9 +13,14 @@ export default {
         // 生命周期
         mounted()
 
-        return {
+        const refs = refFun()
 
+        return {
+            ...refs
         }
+    },
+    mounted () {
+        console.log(this.$refs)
     }
 }
 </script>
