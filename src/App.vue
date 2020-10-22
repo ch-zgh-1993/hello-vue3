@@ -1,29 +1,55 @@
 <template>
-  <api 
-    msg="Welcome to Your Vue.js App"
-    head="i am head"
-    :foo="foo"
-  />
+  <div>
+    <api 
+      v-if="module === 'Api'"
+      msg="Welcome to Your Vue.js App"
+      head="i am head"
+      :foo="foo"
+    />
+
+    <example 
+      v-else-if="module === 'Example'"
+      :msg="msg"
+    />
+  </div>
 </template>
 
 <script>
 import api from './views/api'
+import example from './views/example'
 
 export default {
   name: 'App',
   data () {
     return {
-      foo: 1
+      foo: 1,
+      // 当前模块
+      module: 'Example',
+      msg: 'hello world'
     }
   },
   components: {
-    api
+    api,
+    example
   },
   mounted () {
-    // 改变props 的值，看 toRef 的监听
-    setTimeout(() => {
-      this.foo = 10
-    }, 2000)
+    this.init()
+  },
+  methods: {
+    init () {
+      this[`init${this.module}`] && this[`init${this.module}`]()
+    },
+    initApi () {
+      // 改变props 的值，看 toRef 的监听
+      setTimeout(() => {
+        this.foo = 10
+      }, 2000)
+    },
+    initExample () {
+      setTimeout(() => {
+        this.msg = 'change'
+      }, 1000)
+    }
   }
 }
 </script>
